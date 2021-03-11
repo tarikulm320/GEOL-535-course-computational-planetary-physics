@@ -1,0 +1,22 @@
+import numpy as np
+import matplotlib.pyplot as plt
+tMin=0.0
+tMax=2*np.pi
+intervals=100
+dt=(tMax-tMin)/intervals
+nt=intervals+1
+time=np.arange(nt)*dt
+x=np.sin(2*time);y=np.cos(time)
+
+plt.plot(x,y,'b',label='position')
+
+dxdt=(x[1:nt]-x[0:nt-1])/dt
+dydt=(y[1:nt]-y[0:nt-1])/dt
+dx2dt2=(x[0:nt-2]-2*x[1:nt-1]+x[2:nt])/dt**2
+dy2dt2=(y[0:nt-2]-2*y[1:nt-1]+y[2:nt])/dt**2
+numarrows=20
+alen=0.2
+for it in np.arange(0,nt-1,int(nt/numarrows)):
+    plt.arrow(x[it+1],y[it+1],dxdt[it]*alen,dydt[it]*alen,fc='g')
+    plt.arrow(x[it+1],y[it+1],dx2dt2[it]*alen,dy2dt2[it]*alen,fc='r')
+plt.show()
